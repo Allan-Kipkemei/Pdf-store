@@ -4,6 +4,12 @@ const http = require("http");
 const bodyParser = require("body-parser");
 const axios = require("axios"); // Import 'axios' instead of 'request'
 const moment = require("moment");
+const User = require('./models/models')
+const mongoose= require('mongoose')
+const { ConnectToDatabase } = require('./config/db')
+
+
+
 
 const cors = require("cors");
 
@@ -12,6 +18,8 @@ const hostname = "localhost";
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
+
+ConnectToDatabase();
 
 
 const server = http.createServer(app);
@@ -57,8 +65,8 @@ app.get("/access_token", (req, res) => {
 
 //MPESA STK PUSH ROUTE
 app.get("/stkpush", (req, res) => {
-  let phoneNumber=req.query.phoneNumber;
-  const amount=req.query.amount;
+  let phoneNumber = req.query.phoneNumber;
+  const amount = req.query.amount;
   getAccessToken()
     .then((accessToken) => {
       const url =
@@ -67,8 +75,8 @@ app.get("/stkpush", (req, res) => {
       const timestamp = moment().format("YYYYMMDDHHmmss");
       const password = new Buffer.from(
         "174379" +
-          "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919" +
-          timestamp
+        "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919" +
+        timestamp
       ).toString("base64");
 
       axios
@@ -82,9 +90,9 @@ app.get("/stkpush", (req, res) => {
             Amount: amount,
             PartyA: "254710251692",
             PartyB: "174379",
-            PhoneNumber: "254710251692", 
+            PhoneNumber: "254710251692",
             CallBackURL: "https://mydomain.com/path",
-            AccountReference: "ALUS PAY",
+            AccountReference: "Alus Mabele",
             TransactionDesc: "Mpesa Daraja API stk push test",
           },
           {
@@ -103,8 +111,26 @@ app.get("/stkpush", (req, res) => {
           res.status(500).send("❌ Request failed");
         });
     })
-    .catch(console.log);
+    .catch(console.log)
 });
+
+
+app.post('/UserData', async (req, res) => {
+  try {
+    const { name, phoneNumber, amount } = req.body;
+//getting the timestamp
+    const timestamp = new Date();
+
+
+    const NewUserData = new User ({ name, phoneNumber, amount , createdAt: timestamp});
+    await NewUserData.save();
+    res.status(200).json({ message: 'User data added successfully to the database' });
+    res.json({message:'hellow Userdata'})
+  } catch (error) {
+    console.log(error.message);
+  } 
+});
+
 
 server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
