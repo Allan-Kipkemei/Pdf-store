@@ -18,8 +18,8 @@ const server = http.createServer(app);
 
 // ACCESS TOKEN FUNCTION - Updated to use 'axios'
 async function getAccessToken() {
-  const consumer_key = "a96MleGfcNEebNcOjGZhcHkFkdmtutOz"; // REPLACE IT WITH YOUR CONSUMER KEY
-  const consumer_secret = "AUzZiBGRQ6A1rVXp"; // REPLACE IT WITH YOUR CONSUMER SECRET
+  const consumer_key = "2oI7PoalUzC4Dt5mbHYGnZMXcgYsyiOf"; // REPLACE IT WITH YOUR CONSUMER KEY
+  const consumer_secret = "jmSpjCKrqPEQl350"; // REPLACE IT WITH YOUR CONSUMER SECRET
   const url =
     "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials";
 
@@ -82,7 +82,7 @@ app.get("/stkpush", (req, res) => {
             Amount: amount,
             PartyA: "254710251692",
             PartyB: "174379",
-            PhoneNumber: "phone", 
+            PhoneNumber: "254710251692", 
             CallBackURL: "https://mydomain.com/path",
             AccountReference: "ALUS PAY",
             TransactionDesc: "Mpesa Daraja API stk push test",
