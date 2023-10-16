@@ -5,32 +5,32 @@ name: Node.js Package
 
 on:
   release:
-    types: [created]
+    types: [created] # Trigger this workflow when a new release is created
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v3 # Check out the code repository
+      - uses: actions/setup-node@v3 # Set up Node.js environment
         with:
           node-version: 16
-      - run: npm ci
-      - run: npm test
+      - run: npm ci # Install Node.js dependencies
+      - run: npm test # Run tests
 
   publish-gpr:
-    needs: build
+    needs: build # This job depends on the "build" job
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v3 # Check out the code repository
+      - uses: actions/setup-node@v3 # Set up Node.js environment with custom npm registry
         with:
           node-version: 16
           registry-url: https://npm.pkg.github.com/
-      - run: npm ci
-      - run: npm publish
+      - run: npm ci # Install Node.js dependencies
+      - run: npm publish # Publish the package to GitHub Packages
         env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}} # Authenticate with GitHub token for package publishing
