@@ -120,8 +120,6 @@ app.post('/UserData', async (req, res) => {
     const { name, phoneNumber, amount } = req.body;
 //getting the timestamp
     const timestamp = new Date();
-
-
     const NewUserData = new User ({ name, phoneNumber, amount , createdAt: timestamp});
     await NewUserData.save();
     res.status(200).json({ message: 'User data added successfully to the database' });
