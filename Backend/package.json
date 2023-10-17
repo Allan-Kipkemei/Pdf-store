@@ -16,6 +16,7 @@
     "moment": "^2.29.4",
     "mongoose": "^7.4.2",
     "nodemon": "^3.0.1",
-    "unirest": "^0.6.0"
+    "unirest": "^0.6.0",
+    "whatsapp-business-api": "^0.0.4"
   }
 }
