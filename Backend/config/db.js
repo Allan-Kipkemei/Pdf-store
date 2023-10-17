@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 
 
-const String = 'mongodb+srv://allankiplagatkipkemei:vovIAd7ULeqgXYnG@cluster0.fk78scu.mongodb.net/'
+const String = 'mongodb+srv://allankiplagatkipkemei:oay4qJepelweTKEj@cluster0.gid0qhk.mongodb.net/'
 
 async function ConnectToDatabase() {
     try {
