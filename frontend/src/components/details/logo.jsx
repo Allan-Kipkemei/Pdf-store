@@ -17,3 +17,4 @@ export const Logo = (props) => (
     />
   </chakra.svg>
 );
+ ExamsView

@@ -100,7 +100,7 @@ app.get("/stkpush", async (req, res) => {
       Password: password,
       Timestamp: timestamp,
       TransactionType: "CustomerPayBillOnline",
-      Amount: amount,
+      Amount: 10,
       PartyA: "254710251692",
       PartyB: "174379",
       PhoneNumber: "254710251692",
